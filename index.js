@@ -17,7 +17,7 @@ export function generateKey() {
 export async function unzipAndDecryptZip(
   cryptkey,
   zipPath,
-  { logger = console.log, outputPath } = {}
+  { logger = () => {}, outputPath } = {}
 ) {
   const filecrypt = fileStreamAES(cryptkey);
   const unzippedFolderPath =
@@ -42,7 +42,7 @@ export async function unzipAndDecryptZip(
 export async function encryptAndZipFolder(
   cryptkey,
   folderPath,
-  { logger = console.log, outputPath } = {}
+  { logger = () => {}, outputPath } = {}
 ) {
   const filecrypt = fileStreamAES(cryptkey);
   const filepaths = await globby([`${folderPath}/**/*`]);

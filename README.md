@@ -10,15 +10,53 @@ With a simple API, you can easily zip and encrypt a directory and later unzip an
 - Encrypt and zip folders
 - Unzip and decrypt zipped files
 
-## Installation
+## CLI Usage
 
-You can install the library using npm:
+Monozip can be used directly from the command line. The general structure of a command is:
+
+```bash
+monozip [command] [options]
+```
+
+### Installation
+
+To use the cli, install globally with npm:
+
+```bash
+npm install -g monozip
+```
+
+### Usage
+
+**To encrypt and zip a folder:**
+
+You can specify an encryption key and an output path using the `-k` and `--output` options respectively. If not specified, a key will be generated automatically, and the output file will be saved in the current directory.
+
+```bash
+monozip encrypt ./path/to/folder
+```
+
+After running this command, it will print out the encryption key used (keep it safe, you will need it to decrypt), and the path to the zipped file.
+
+**To unzip and decrypt a file:**
+
+You need to provide the encryption key and the path to the zipped file. You can also specify an output path using the `-o` option. If not specified, the file will be unzipped in the current directory.
+
+```bash
+monozip decrypt your-key ./path/to/file.zip
+```
+
+After running this command, it will print out the path to the unzipped and decrypted files.
+
+## Programmatic Usage
+
+### Installation
+
+Install the library using npm:
 
 ```bash
 npm install monozip
 ```
-
-## Usage
 
 ### Encryption and Compression
 
@@ -58,36 +96,6 @@ const outputPath = await unzipAndDecryptZip(secretKey, zipPath, {
 
 console.info(`Unzipped and decrypted ${outputPath}`);
 // Unzipped and decrypted downloads/myphotos-unzipped
-```
-
-## CLI
-
-Monozip can be used directly from the command line. The general structure of a command is:
-
-```bash
-monozip [command] [options]
-```
-
-### Installation
-
-To use the cli, install globally with npm:
-
-```bash
-npm install -g monozip
-```
-
-### Usage
-
-**To encrypt and zip a folder:**
-
-```bash
-monozip encrypt --dir downloads/myphotos
-```
-
-**To unzip and decrypt a file:**
-
-```bash
-monozip decrypt --key my-secret-key --file downloads/myphotos.zip
 ```
 
 ## Testing
