@@ -1,6 +1,6 @@
-# Monozip 📦
+# Monozip 📦🔑
 
-Monozip is a utility library that provides functionality to compress, encrypt, and decompress files using **AES encryption** 🔐.
+Utility library providing encrypt/compress and decompress/decrypt using using **AES encryption** 🔐.
 
 With a simple API, you can easily zip and encrypt a directory and later unzip and decrypt it.
 
@@ -8,7 +8,7 @@ With a simple API, you can easily zip and encrypt a directory and later unzip an
 
 - Generate encryption keys 🔑
 - Encrypt and zip folders 📁➡️🔒📦
-- Unzip and decrypt zipped files 📦🔓➡️📂
+- Unzip and decrypt zipped files 📦➡️📂🔓
 
 ## CLI Usage 💻
 
