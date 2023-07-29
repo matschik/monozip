@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import path from "node:path";
 
 import { globby } from "globby";
-import fse from "fs-extra";
+import fsx from "fs-extra";
 import { temporaryDirectoryTask, temporaryFileTask } from "tempy";
 import archiver from "archiver";
 import StreamZip from "node-stream-zip";
@@ -24,7 +24,7 @@ export async function unzipAndDecryptZip(
   const unzippedFolderPath =
     outputPath || `${removeExtension(zipPath)}-decrypted`;
 
-  await fse.ensureDir(unzippedFolderPath);
+  await fsx.ensureDir(unzippedFolderPath);
   const zip = new StreamZip.async({ file: zipPath });
   await zip.extract(null, unzippedFolderPath);
 
@@ -77,7 +77,7 @@ export async function encryptAndZipFolder(
 
           const destCrypt = `${tempDirPath}/${srcFilePath}`;
 
-          await fse.ensureDir(path.parse(destCrypt).dir);
+          await fsx.ensureDir(path.parse(destCrypt).dir);
           await filecrypt.encrypt(filepath, destCrypt);
 
           archive.file(destCrypt, { name: srcFilePath });
