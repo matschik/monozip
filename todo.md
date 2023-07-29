@@ -1,0 +1,2 @@
+- encrypt filenames
+- decrypt filenames
