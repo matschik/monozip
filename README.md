@@ -63,7 +63,6 @@ npm install monozip
 To encrypt and zip a folder, you can use the `generateKey` and `encryptAndZipFolder` functions. Here is an example:
 
 ```javascript
-import fse from "fs-extra";
 import { generateKey, encryptAndZipFolder } from "monozip";
 
 const folderPath = "downloads/myphotos";
