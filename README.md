@@ -1,6 +1,6 @@
 # Monozip 📦🔑
 
-Utility library providing encrypt/compress and decompress/decrypt using using **AES encryption** 🔐.
+Utility library providing encrypt/compress and decompress/decrypt using **AES encryption** 🔐.
 
 With a simple API, you can easily zip and encrypt a directory and later unzip and decrypt it.
 
