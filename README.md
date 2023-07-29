@@ -90,11 +90,11 @@ const secretKey = "my-secret-key";
 // Unzip and decrypt the zipped file
 const zipPath = "downloads/myphotos.zip";
 const outputPath = await unzipAndDecryptZip(secretKey, zipPath, {
-  outputPath: "downloads/myphotos-unzipped",
+  outputPath: "downloads/myphotos-decrypted",
 });
 
 console.info(`Unzipped and decrypted ${outputPath}`);
-// Unzipped and decrypted downloads/myphotos-unzipped
+// Unzipped and decrypted downloads/myphotos-decrypted
 ```
 
 ## Testing 🧪

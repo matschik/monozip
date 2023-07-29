@@ -19,9 +19,10 @@ export async function unzipAndDecryptZip(
   zipPath,
   { logger = () => {}, outputPath } = {}
 ) {
+  const textcrypt = textAES(cryptkey);
   const filecrypt = fileStreamAES(cryptkey);
   const unzippedFolderPath =
-    outputPath || `${removeExtension(zipPath)}-unzipped`;
+    outputPath || `${removeExtension(zipPath)}-decrypted`;
 
   await fse.ensureDir(unzippedFolderPath);
   const zip = new StreamZip.async({ file: zipPath });
@@ -30,10 +31,16 @@ export async function unzipAndDecryptZip(
   await zip.close();
   const filepaths = await globby([`${unzippedFolderPath}/**/*`]);
   for (const filepath of filepaths) {
+    const filePathParsed = path.parse(filepath);
+    const destFilePath = path.format({
+      dir: filePathParsed.dir,
+      base: textcrypt.decrypt(filePathParsed.base),
+    });
     await temporaryFileTask(async (tempFilePath) => {
       await filecrypt.decrypt(filepath, tempFilePath);
-      await fs.rename(tempFilePath, filepath);
+      await fs.rename(tempFilePath, destFilePath);
     });
+    await fs.rm(filepath);
   }
 
   return unzippedFolderPath;
@@ -44,6 +51,7 @@ export async function encryptAndZipFolder(
   folderPath,
   { logger = () => {}, outputPath } = {}
 ) {
+  const textcrypt = textAES(cryptkey);
   const filecrypt = fileStreamAES(cryptkey);
   const filepaths = await globby([`${folderPath}/**/*`]);
   const zipPath = outputPath || `${folderPath}.zip`;
@@ -59,7 +67,14 @@ export async function encryptAndZipFolder(
         archive.pipe(output);
 
         for (const filepath of filepaths) {
-          const srcFilePath = filepath.replace(`${folderPath}/`, "");
+          const srcFilePathParsed = path.parse(
+            filepath.replace(`${folderPath}/`, "")
+          );
+          const srcFilePath = path.format({
+            dir: srcFilePathParsed.dir,
+            base: textcrypt.encrypt(srcFilePathParsed.base),
+          });
+
           const destCrypt = `${tempDirPath}/${srcFilePath}`;
 
           await fse.ensureDir(path.parse(destCrypt).dir);
@@ -169,4 +184,35 @@ function removeExtension(filename) {
     dir: filePath.dir,
     name: filePath.name,
   });
+}
+
+function textAES(secretKey) {
+  const algorithm = "aes-256-cbc";
+  const key = Buffer.from(secretKey, "hex");
+  const ivNumberOfBytes = 16;
+
+  return {
+    encrypt(text) {
+      const iv = crypto.randomBytes(ivNumberOfBytes);
+      const cipher = crypto.createCipheriv(algorithm, key, iv);
+      const encrypted = Buffer.concat([
+        iv,
+        cipher.update(text, "utf8"),
+        cipher.final(),
+      ]);
+
+      return encrypted.toString("hex");
+    },
+    decrypt(encryptedText) {
+      const data = new Uint8Array(Buffer.from(encryptedText, "hex"));
+      const iv = data.subarray(0, ivNumberOfBytes);
+      const textBytes = data.subarray(ivNumberOfBytes);
+
+      const decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(iv));
+      let decrypted = decipher.update(Buffer.from(textBytes));
+      decrypted += decipher.final("utf8");
+
+      return decrypted;
+    },
+  };
 }
