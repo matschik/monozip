@@ -1,16 +1,16 @@
-# Monozip
+# Monozip 📦
 
-Monozip is a utility library that provides functionality to compress, encrypt, and decompress files using **AES encryption**.
+Monozip is a utility library that provides functionality to compress, encrypt, and decompress files using **AES encryption** 🔐.
 
 With a simple API, you can easily zip and encrypt a directory and later unzip and decrypt it.
 
-## Features
+## Features 🚀
 
-- Generate encryption keys
-- Encrypt and zip folders
-- Unzip and decrypt zipped files
+- Generate encryption keys 🔑
+- Encrypt and zip folders 📁➡️🔒📦
+- Unzip and decrypt zipped files 📦🔓➡️📂
 
-## CLI Usage
+## CLI Usage 💻
 
 Monozip can be used directly from the command line. The general structure of a command is:
 
@@ -18,7 +18,7 @@ Monozip can be used directly from the command line. The general structure of a c
 monozip [command] [options]
 ```
 
-### Installation
+### Installation 💾
 
 To use the cli, install globally with npm:
 
@@ -26,7 +26,7 @@ To use the cli, install globally with npm:
 npm install -g monozip
 ```
 
-### Usage
+### Usage 📖
 
 **To encrypt and zip a folder:**
 
@@ -36,7 +36,7 @@ You can specify an encryption key and an output path using the `-k` and `--outpu
 monozip encrypt ./path/to/folder
 ```
 
-After running this command, it will print out the encryption key used (keep it safe, you will need it to decrypt), and the path to the zipped file.
+After running this command, it will print out the encryption key used (keep it safe, you will need it to decrypt 🔐), and the path to the zipped file.
 
 **To unzip and decrypt a file:**
 
@@ -48,9 +48,9 @@ monozip decrypt your-key ./path/to/file.zip
 
 After running this command, it will print out the path to the unzipped and decrypted files.
 
-## Programmatic Usage
+## Programmatic Usage 💡
 
-### Installation
+### Installation 💾
 
 Install the library using npm:
 
@@ -58,7 +58,7 @@ Install the library using npm:
 npm install monozip
 ```
 
-### Encryption and Compression
+### Encryption and Compression 🔐📦
 
 To encrypt and zip a folder, you can use the `generateKey` and `encryptAndZipFolder` functions. Here is an example:
 
@@ -77,7 +77,7 @@ console.info(`Encrypted with key ${secretKey} and zipped folder ${folderPath}`);
 // Encrypted with key e96c9074fa... and zipped folder downloads/myphotos.zip. Keep the key safe!
 ```
 
-### Decompression and Decryption
+### Decompression and Decryption 📂🔓
 
 To unzip and decrypt a previously encrypted and zipped file, you can use the `unzipAndDecryptZip` function. Here is an example:
 
@@ -97,7 +97,7 @@ console.info(`Unzipped and decrypted ${outputPath}`);
 // Unzipped and decrypted downloads/myphotos-unzipped
 ```
 
-## Testing
+## Testing 🧪
 
 The project uses [Vitest](https://github.com/vitest-dev/vitest) for testing.
 
@@ -107,10 +107,10 @@ You can run the tests with:
 npm test
 ```
 
-## Contributing
+## Contributing 🤝
 
 We welcome contributions! Please see [here](./CONTRIBUTING.md) for details on how to contribute.
 
-## License
+## License 📄
 
 This project is open source, licensed under the MIT License. See [LICENSE](./LICENSE) for details.
