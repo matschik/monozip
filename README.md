@@ -8,7 +8,7 @@ With a simple API, you can easily zip and encrypt a directory and later unzip an
 
 - Generate encryption keys 🔑
 - Encrypt and zip folders 📁➡️🔒📦
-- Unzip and decrypt zipped files 📦➡️📂🔓
+- Unzip and decrypt an encrypted zip folder 📦➡️📂🔓
 
 ## CLI Usage 💻
 
@@ -38,7 +38,7 @@ monozip encrypt ./path/to/folder
 
 After running this command, it will print out the encryption key used (keep it safe, you will need it to decrypt 🔐), and the path to the zipped file.
 
-**To unzip and decrypt a file:**
+**To unzip and decrypt an encrypted zip file:**
 
 You need to provide the encryption key and the path to the zipped file. You can also specify an output path using the `-o` option. If not specified, the file will be unzipped in the current directory.
 
